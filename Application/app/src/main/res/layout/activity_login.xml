@@ -25,7 +25,7 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="181dp"
         app:srcCompat="@drawable/amarosa" />
 
     <ScrollView
@@ -62,9 +62,19 @@
                     android:id="@+id/email_sign_in_button"
                     style="?android:textAppearanceSmall"
                     android:layout_width="match_parent"
-                    android:layout_height="59dp"
+                    android:layout_height="40dp"
 
                     android:text="@string/action_sign_in_short"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/continue_with_facebook"
+                    style="?android:textAppearanceSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/round_corners"
+                    android:text="Continue with Facebook"
+
                     android:textStyle="bold" />
 
                 <EditText
@@ -80,18 +90,11 @@
                     android:singleLine="true" />
 
                 <Button
-                    android:id="@+id/continue_with_facebook"
-                    style="?android:textAppearanceSmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="59dp"
-                    android:text="Continue with Facebook"
-                    android:textStyle="bold" />
-
-                <Button
                     android:id="@+id/create_a_account"
                     style="?android:textAppearanceSmall"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/account"
 
                     android:text="Create An Account"
                     android:textStyle="bold" />
@@ -99,9 +102,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="by continuing you are agreeing to our terms and service and you wont do anything bad"
                     android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    />
+                    android:text="by continuing you are agreeing to our terms and service and you wont do anything bad" />
             </android.support.design.widget.TextInputLayout>
 
         </LinearLayout>
