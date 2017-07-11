@@ -24,8 +24,10 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="181dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="140dp"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
         app:srcCompat="@drawable/amarosa" />
 
     <ScrollView
@@ -49,6 +51,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_email"
                     android:inputType="textEmailAddress"
+
                     android:maxLines="1"
                     android:singleLine="true" />
 
@@ -63,7 +66,8 @@
                     style="?android:textAppearanceSmall"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/Sign in"
                     android:text="@string/action_sign_in_short"
                     android:textStyle="bold" />
 
@@ -72,6 +76,7 @@
                     style="?android:textAppearanceSmall"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
+                    android:layout_marginTop="20dp"
                     android:background="@drawable/round_corners"
                     android:text="Continue with Facebook"
 
@@ -94,16 +99,17 @@
                     style="?android:textAppearanceSmall"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
+                    android:layout_marginTop="20dp"
                     android:background="@drawable/account"
-
                     android:text="Create An Account"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    android:text="by continuing you are agreeing to our terms and service and you wont do anything bad" />
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="1dp"
+                    android:text="by continuing you are agreeing to our terms and service and parker is a bitch" />
             </android.support.design.widget.TextInputLayout>
 
         </LinearLayout>
