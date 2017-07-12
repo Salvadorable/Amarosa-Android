@@ -24,8 +24,10 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="140dp"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
         app:srcCompat="@drawable/amarosa" />
 
     <ScrollView
@@ -45,12 +47,16 @@
 
                 <AutoCompleteTextView
                     android:id="@+id/email"
-                    android:layout_width="match_parent"
+                    android:layout_width="296dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:hint="@string/prompt_email"
                     android:inputType="textEmailAddress"
+
+
                     android:maxLines="1"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:textColor="#ffffff" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -61,47 +67,61 @@
                 <Button
                     android:id="@+id/email_sign_in_button"
                     style="?android:textAppearanceSmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="59dp"
+                    android:layout_width="294dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="30dp"
 
-                    android:text="@string/action_sign_in_short"
+                    android:background="@drawable/signsin"
                     android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/continue_with_facebook"
+                    style="?android:textAppearanceSmall"
+                    android:layout_width="295dp"
+                    android:layout_height="40dp"
+
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+
+
+                    android:background="@drawable/fbook"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/create_a_account"
+                    style="?android:textAppearanceSmall"
+                    android:layout_width="299dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/accounts"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="1dp"
+                    android:layout_marginTop="10dp"
+                    android:text="by continuing, you are agreeing to our Terms of Service and Privacy Policy"
+                    android:textColor="#ffffff"
+                    android:textSize="10dp" />
 
                 <EditText
                     android:id="@+id/password"
-                    android:layout_width="match_parent"
+                    android:layout_width="299dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:hint="@string/prompt_password"
                     android:imeActionId="@+id/login"
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
                     android:maxLines="1"
+
                     android:singleLine="true" />
 
-                <Button
-                    android:id="@+id/continue_with_facebook"
-                    style="?android:textAppearanceSmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="59dp"
-                    android:text="Continue with Facebook"
-                    android:textStyle="bold" />
-
-                <Button
-                    android:id="@+id/create_a_account"
-                    style="?android:textAppearanceSmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-
-                    android:text="Create An Account"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="by continuing you are agreeing to our terms and service and you wont do anything bad"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    />
             </android.support.design.widget.TextInputLayout>
 
         </LinearLayout>
