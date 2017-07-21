@@ -6,12 +6,4 @@
     android:layout_height="match_parent"
     tools:context="com.example.android.amarosa.CreateAccountPage">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="109dp"
-        android:layout_height="22dp"
-        android:text="Parker is a Bitch"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        tools:layout_editor_absoluteX="138dp"
-        tools:layout_editor_absoluteY="185dp" />
 </android.support.constraint.ConstraintLayout>
