@@ -96,10 +96,10 @@ public class LoginActivity extends AppCompatActivity{
     }//end of oncreate method
 
     public void startSignIn(){
-        String email = mEmail.toString();
-        String password = mPassword.toString();
+        String email = mEmail.getText().toString().trim();
+        String password = mPassword.getText().toString().trim();
 
-        //if username or password is empty methods go here
+        //if username or password is empty methods go here and do somehting stupid
 
 
         mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
