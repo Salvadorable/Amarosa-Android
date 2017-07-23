@@ -31,6 +31,9 @@ public class CreateAccountPage extends AppCompatActivity {
                     Intent i = new Intent(v.getContext(), ProfilePage.class);
                     startActivity(i);
                 }
+                else{
+                    //push something that says why it didnt work aka check username and password
+                }
             }
         });
 
