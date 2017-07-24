@@ -9,5 +9,5 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_marginTop="200dp"
-        android:text="Parker Sucks" />
+        android:text="THis is the profile page" />
 </LinearLayout>

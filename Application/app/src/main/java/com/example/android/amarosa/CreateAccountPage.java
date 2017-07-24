@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.firebase.client.Firebase;
+import com.firebase.client.core.Context;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -54,13 +55,15 @@ public class CreateAccountPage extends AppCompatActivity {
         mFinishCreateAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                registerUser();
+                //registerUser();
                 Intent i = new Intent(v.getContext(), ProfilePage.class);
                 startActivity(i);
             }
         });
     }
     private void registerUser(){
+        //Something is crashing right here
+
         String email = mEmail.getText().toString().trim();
         String password = mPassword.getText().toString().trim();
         String birthday = mBirthday.getText().toString().trim();
