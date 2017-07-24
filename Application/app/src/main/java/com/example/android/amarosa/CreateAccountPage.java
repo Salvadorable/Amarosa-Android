@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.firebase.client.Firebase;
+import com.firebase.client.core.Context;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -20,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class CreateAccountPage extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
+    private Firebase mRef;
     private Button mFinishCreateAccountButton; //had to create my button
     private EditText mEmail;
     private EditText mPassword;
@@ -36,6 +39,9 @@ public class CreateAccountPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account_page);
 
+        Firebase.setAndroidContext(this);
+
+        mRef = new Firebase("https://amarosa-d3c58.firebaseio.com");//new database instance
         mAuth = FirebaseAuth.getInstance();
         mFinishCreateAccountButton = (Button) findViewById(R.id.finish_create_account_button);
         mEmail = (EditText) findViewById(R.id.new_user_email);
@@ -44,33 +50,53 @@ public class CreateAccountPage extends AppCompatActivity {
         mGender1 = (Button) findViewById(R.id.gender1);
         mGender2 = (Button) findViewById(R.id.gender2);
         mGender3 = (Button) findViewById(R.id.gender3);
-        progress = new ProgressDialog(this);
+        //progress = new ProgressDialog(this);
+
         mFinishCreateAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 registerUser();
-                Intent i = new Intent(v.getContext(), ProfilePage.class);
-                startActivity(i);
+                //Intent i = new Intent(v.getContext(), ProfilePage.class);
+                //startActivity(i);
             }
         });
     }
     private void registerUser(){
+        //Something is crashing right here
+
         String email = mEmail.getText().toString().trim();
         String password = mPassword.getText().toString().trim();
+        //String birthday = mBirthday.getText().toString().trim();
+        //String name = mName.getText().toString().trim();
+        //add gender here??
+
+
+        mRef.push().child("users");
+        //Firebase mRefChildName = mRef.child("Name");
+        //mRefChildName.setValue(name);
+        //Firebase mRefChildPassword = mRef.child("Password");
+        //mRefChildPassword.setValue(password);
+        //Firebase mRefChildBirthday = mRef.child("Birthday");
+        //mRefChildBirthday.setValue(birthday);
+        //Firebase mRefChildEmail = mRef.child("Email");
+        //mRefChildEmail.setValue(email);
+
         if(TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
-            Toast.makeText(getApplicationContext(),"Your Password Or Email is Blank",Toast.LENGTH_LONG);
+            Toast.makeText(CreateAccountPage.this,"Your Password Or Email is Blank",Toast.LENGTH_LONG).show();
             return;
         }
         //lets show a progressbar
-        ProgressDialog.show(getApplicationContext(),"Register","Registering User...");
+
         mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(getApplicationContext(),"Successfully Registered User moving to Profile Page",Toast.LENGTH_LONG);
+                    Toast.makeText(getApplicationContext(),"Successfully Registered User moving to Profile Page",Toast.LENGTH_LONG).show();
                 }
                 else{
-                    Toast.makeText(getApplicationContext(),"Failed to Register User, Something went wrong",Toast.LENGTH_LONG);                }
+                    Toast.makeText(getApplicationContext(),"Failed to Register User, Something went wrong",Toast.LENGTH_LONG).show();
+                    return;
+                }
             }
         });
     }

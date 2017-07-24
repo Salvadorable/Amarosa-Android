@@ -25,6 +25,6 @@ public class AccountSettings extends AppCompatActivity {
                 Intent i = new Intent(v.getContext(),LoginActivity.class);
                 startActivity(i);
             }
-        }
+        });
     }
 }
