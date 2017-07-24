@@ -14,7 +14,7 @@ public class ProfilePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_page);
-        Toast.makeText(getApplicationContext(),"Successfully Signed In",Toast.LENGTH_LONG);
+        Toast.makeText(getApplicationContext(),"Successfully Signed In",Toast.LENGTH_LONG).show();
     }
 
 

@@ -41,7 +41,7 @@ public class CreateAccountPage extends AppCompatActivity {
 
         Firebase.setAndroidContext(this);
 
-        mRef = new Firebase("https://amarosa-d3c58.firebaseio.com/users");//new database instance
+        mRef = new Firebase("https://amarosa-d3c58.firebaseio.com");//new database instance
         mAuth = FirebaseAuth.getInstance();
         mFinishCreateAccountButton = (Button) findViewById(R.id.finish_create_account_button);
         mEmail = (EditText) findViewById(R.id.new_user_email);
@@ -50,14 +50,14 @@ public class CreateAccountPage extends AppCompatActivity {
         mGender1 = (Button) findViewById(R.id.gender1);
         mGender2 = (Button) findViewById(R.id.gender2);
         mGender3 = (Button) findViewById(R.id.gender3);
-        progress = new ProgressDialog(this);
+        //progress = new ProgressDialog(this);
 
         mFinishCreateAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //registerUser();
-                Intent i = new Intent(v.getContext(), ProfilePage.class);
-                startActivity(i);
+                registerUser();
+                //Intent i = new Intent(v.getContext(), ProfilePage.class);
+                //startActivity(i);
             }
         });
     }
@@ -66,36 +66,37 @@ public class CreateAccountPage extends AppCompatActivity {
 
         String email = mEmail.getText().toString().trim();
         String password = mPassword.getText().toString().trim();
-        String birthday = mBirthday.getText().toString().trim();
-        String name = mName.getText().toString().trim();
+        //String birthday = mBirthday.getText().toString().trim();
+        //String name = mName.getText().toString().trim();
         //add gender here??
 
-        //Firebase mRefChild = mRef.child("Name");
-        //mRef.push().setValue(name);
-        mRef.push();//this should push a new id that is random as hell
-        Firebase mRefChildName = mRef.child("Name");
-        mRefChildName.setValue(name);
-        Firebase mRefChildPassword = mRef.child("Password");
-        mRefChildPassword.setValue(password);
-        Firebase mRefChildBirthday = mRef.child("Birthday");
-        mRefChildBirthday.setValue(birthday);
-        Firebase mRefChildEmail = mRef.child("Email");
-        mRefChildEmail.setValue(email);
+
+        mRef.push().child("users");
+        //Firebase mRefChildName = mRef.child("Name");
+        //mRefChildName.setValue(name);
+        //Firebase mRefChildPassword = mRef.child("Password");
+        //mRefChildPassword.setValue(password);
+        //Firebase mRefChildBirthday = mRef.child("Birthday");
+        //mRefChildBirthday.setValue(birthday);
+        //Firebase mRefChildEmail = mRef.child("Email");
+        //mRefChildEmail.setValue(email);
 
         if(TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
-            Toast.makeText(getApplicationContext(),"Your Password Or Email is Blank",Toast.LENGTH_LONG);
-            onRestart();//restart the page??? this is a maybe because idk if it will work well
+            Toast.makeText(CreateAccountPage.this,"Your Password Or Email is Blank",Toast.LENGTH_LONG).show();
+            return;
         }
         //lets show a progressbar
-        ProgressDialog.show(getApplicationContext(),"Register","Registering User...");
+
         mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(getApplicationContext(),"Successfully Registered User moving to Profile Page",Toast.LENGTH_LONG);
+                    Toast.makeText(getApplicationContext(),"Successfully Registered User moving to Profile Page",Toast.LENGTH_LONG).show();
                 }
                 else{
-                    Toast.makeText(getApplicationContext(),"Failed to Register User, Something went wrong",Toast.LENGTH_LONG);                }
+                    Toast.makeText(getApplicationContext(),"Failed to Register User, Something went wrong",Toast.LENGTH_LONG).show();
+                    return;
+                }
             }
         });
     }
