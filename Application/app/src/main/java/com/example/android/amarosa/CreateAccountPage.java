@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -20,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class CreateAccountPage extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
+    private Firebase mRef;
     private Button mFinishCreateAccountButton; //had to create my button
     private EditText mEmail;
     private EditText mPassword;
@@ -36,6 +38,9 @@ public class CreateAccountPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account_page);
 
+        Firebase.setAndroidContext(this);
+
+        mRef = new Firebase("https://amarosa-d3c58.firebaseio.com/users");//new database instance
         mAuth = FirebaseAuth.getInstance();
         mFinishCreateAccountButton = (Button) findViewById(R.id.finish_create_account_button);
         mEmail = (EditText) findViewById(R.id.new_user_email);
@@ -45,6 +50,7 @@ public class CreateAccountPage extends AppCompatActivity {
         mGender2 = (Button) findViewById(R.id.gender2);
         mGender3 = (Button) findViewById(R.id.gender3);
         progress = new ProgressDialog(this);
+
         mFinishCreateAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,9 +63,25 @@ public class CreateAccountPage extends AppCompatActivity {
     private void registerUser(){
         String email = mEmail.getText().toString().trim();
         String password = mPassword.getText().toString().trim();
+        String birthday = mBirthday.getText().toString().trim();
+        String name = mName.getText().toString().trim();
+        //add gender here??
+
+        //Firebase mRefChild = mRef.child("Name");
+        //mRef.push().setValue(name);
+        mRef.push();//this should push a new id that is random as hell
+        Firebase mRefChildName = mRef.child("Name");
+        mRefChildName.setValue(name);
+        Firebase mRefChildPassword = mRef.child("Password");
+        mRefChildPassword.setValue(password);
+        Firebase mRefChildBirthday = mRef.child("Birthday");
+        mRefChildBirthday.setValue(birthday);
+        Firebase mRefChildEmail = mRef.child("Email");
+        mRefChildEmail.setValue(email);
+
         if(TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
             Toast.makeText(getApplicationContext(),"Your Password Or Email is Blank",Toast.LENGTH_LONG);
-            return;
+            onRestart();//restart the page??? this is a maybe because idk if it will work well
         }
         //lets show a progressbar
         ProgressDialog.show(getApplicationContext(),"Register","Registering User...");
