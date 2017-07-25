@@ -12,20 +12,24 @@ import android.widget.Toast;
  */
 
 public class ProfilePage extends AppCompatActivity {
+
     private Button mSettings;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_page);
-        mSettings = (Button) findViewById(R.id.settings);
+
+        mSettings = (Button) findViewById(R.id.settings_button);
+
         mSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(v.getContext(),AccountSettings.class);
+                Intent i = new Intent(ProfilePage.this ,AccountSettings.class);
                 startActivity(i);
             }
         });//end of the intent
-        Toast.makeText(getApplicationContext(),"Successfully Signed In",Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(),"Successfully Signed In",Toast.LENGTH_LONG).show();
     }
 
 
