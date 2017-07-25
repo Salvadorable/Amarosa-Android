@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 /**
  * Created by brandonseager on 7/22/17.
@@ -24,6 +25,7 @@ public class ProfilePage extends AppCompatActivity {
                 startActivity(i);
             }
         });//end of the intent
+        Toast.makeText(getApplicationContext(),"Successfully Signed In",Toast.LENGTH_LONG).show();
     }
 
 

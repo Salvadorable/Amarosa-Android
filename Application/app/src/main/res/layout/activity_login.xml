@@ -41,28 +41,23 @@
             android:orientation="vertical">
 
             <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_gravity="center"
                 android:textColorHint="#ffffff"
+                android:layout_width="366dp"
                 android:layout_height="wrap_content">
 
                 <AutoCompleteTextView
                     android:id="@+id/email_auth"
-                    android:layout_width="289dp"
+                    android:layout_width="303dp"
                     android:layout_height="35dp"
                     android:layout_gravity="center"
+                    android:backgroundTint="#ffffff"
                     android:hint="@string/prompt_email"
-                    android:textColorHint="#ffffff"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
-                    android:backgroundTint="#ffffff"
-                    android:singleLine="true" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:textColorHint="#ffffff"
-                android:layout_width="366dp"
-                android:layout_height="wrap_content">
+                    android:singleLine="true"
+                    android:textColorHint="#ffffff" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -76,6 +71,7 @@
                         android:layout_weight="0.37" />
 
                     <EditText
+
                         android:id="@+id/password_auth"
                         android:layout_width="256dp"
                         android:layout_height="wrap_content"

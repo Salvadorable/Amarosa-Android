@@ -12,7 +12,6 @@ import android.widget.Button;
  */
 
 public class AccountSettings extends AppCompatActivity {
-
     private Button mLogOut;
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
