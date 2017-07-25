@@ -18,11 +18,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class CreateAccountPage extends AppCompatActivity {
 
+    private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
-    private Firebase mRef;
     private Button mFinishCreateAccountButton; //had to create my button
     private EditText mEmail;
     private EditText mPassword;
@@ -31,22 +33,20 @@ public class CreateAccountPage extends AppCompatActivity {
     private Button mGender1;
     private Button mGender2;
     private Button mGender3;
-    private ProgressDialog progress;
-    private Boolean accountVerified = false;
+    private ProgressDialog progress;//we need to figure out the new progress dialog
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account_page);
 
-        Firebase.setAndroidContext(this);
-
-        mRef = new Firebase("https://amarosa-d3c58.firebaseio.com");//new database instance
+        mDatabase = FirebaseDatabase.getInstance().getReference("users");
         mAuth = FirebaseAuth.getInstance();
         mFinishCreateAccountButton = (Button) findViewById(R.id.finish_create_account_button);
         mEmail = (EditText) findViewById(R.id.new_user_email);
         mPassword = (EditText) findViewById(R.id.new_user_password);
         mBirthday = (EditText) findViewById(R.id.new_user_birthday);
+        mName = (EditText) findViewById(R.id.new_user_name);
         mGender1 = (Button) findViewById(R.id.gender1);
         mGender2 = (Button) findViewById(R.id.gender2);
         mGender3 = (Button) findViewById(R.id.gender3);
@@ -56,45 +56,51 @@ public class CreateAccountPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 registerUser();
-                //Intent i = new Intent(v.getContext(), ProfilePage.class);
-                //startActivity(i);
             }
         });
     }
     private void registerUser(){
-        //Something is crashing right here
 
         String email = mEmail.getText().toString().trim();
         String password = mPassword.getText().toString().trim();
-        //String birthday = mBirthday.getText().toString().trim();
-        //String name = mName.getText().toString().trim();
-        //add gender here??
+        String birthday = mBirthday.getText().toString().trim();
+        String name = mName.getText().toString().trim();
 
-
-        mRef.push().child("users");
-        //Firebase mRefChildName = mRef.child("Name");
-        //mRefChildName.setValue(name);
-        //Firebase mRefChildPassword = mRef.child("Password");
-        //mRefChildPassword.setValue(password);
-        //Firebase mRefChildBirthday = mRef.child("Birthday");
-        //mRefChildBirthday.setValue(birthday);
-        //Firebase mRefChildEmail = mRef.child("Email");
-        //mRefChildEmail.setValue(email);
-
-        if(TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
-            Toast.makeText(CreateAccountPage.this,"Your Password Or Email is Blank",Toast.LENGTH_LONG).show();
+        if(email.isEmpty()){
+            Toast.makeText(CreateAccountPage.this,"You need to put in a Email Account",Toast.LENGTH_LONG).show();
             return;
         }
+        else if(password.isEmpty()){
+            Toast.makeText(CreateAccountPage.this,"You need to put in a Password",Toast.LENGTH_LONG).show();
+            return;
+        }
+        else if(birthday.isEmpty()){
+            Toast.makeText(CreateAccountPage.this,"You need to put in a Birthday",Toast.LENGTH_LONG).show();
+            return;
+        }
+        else if(name.isEmpty()){
+            Toast.makeText(CreateAccountPage.this,"You need to put in your Name",Toast.LENGTH_LONG).show();
+            return;
+        }
+        /*
+        This is where we add to the Database
+         */
+        String id = mDatabase.push().getKey();
+        mDatabase.child(id).child("Email").setValue(email);
+        mDatabase.child(id).child("Password").setValue(password);
+        mDatabase.child(id).child("Birthday").setValue(birthday);
+        mDatabase.child(id).child("Name").setValue(name);
+
         //lets show a progressbar
 
         mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(getApplicationContext(),"Successfully Registered User moving to Profile Page",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Successfully Registered User",Toast.LENGTH_LONG).show();
                 }
                 else{
-                    Toast.makeText(getApplicationContext(),"Failed to Register User, Something went wrong",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Failed to Register the User, Something went wrong please Try Again",Toast.LENGTH_LONG).show();
                     return;
                 }
             }
