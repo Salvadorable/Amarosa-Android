@@ -20,7 +20,7 @@ public class AccountSettings extends AppCompatActivity {
         mLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+
                 Intent i = new Intent(v.getContext(),LoginActivity.class);
                 startActivity(i);
             }

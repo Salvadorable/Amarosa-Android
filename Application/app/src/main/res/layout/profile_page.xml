@@ -19,7 +19,7 @@
         android:id="@+id/imageView7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.72"
+        android:layout_weight="0.8"
         app:srcCompat="@drawable/cake"
         />
 
@@ -59,7 +59,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/create_loverpage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -69,12 +69,14 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
+            android:layout_weight="0"
             android:text="or"
             android:gravity="center"
             />
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/join_loverpage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -84,7 +86,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="109dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="1">
 
         <EditText
             android:id="@+id/editText3"
@@ -94,12 +97,17 @@
             android:inputType="textPersonName"
             android:text="Name" />
 
-        <EditText
-            android:id="@+id/editText2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Name" />
+        <TextView
+            android:layout_width="350dp"
+            android:layout_height="34dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="1dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="Make sure to create or join a Loverpage
+with your lover to start posting to your Love Story"
+            android:textColor="#000000"
+            android:textSize="10dp" />
+
     </LinearLayout>
 </LinearLayout>
