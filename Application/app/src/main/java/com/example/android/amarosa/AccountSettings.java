@@ -12,7 +12,7 @@ import android.widget.Button;
  */
 
 public class AccountSettings extends AppCompatActivity {
-    @Override
+
     private Button mLogOut;
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,10 +21,10 @@ public class AccountSettings extends AppCompatActivity {
         mLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+
                 Intent i = new Intent(v.getContext(),LoginActivity.class);
                 startActivity(i);
             }
-        }
+        });
     }
 }

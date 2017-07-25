@@ -120,7 +120,7 @@
                     android:layout_marginTop="27dp"
 
 
-                    android:background="@drawable/face"
+                    android:background="@drawable/round_corners"
                     android:textStyle="bold" />
 
                 <Button
