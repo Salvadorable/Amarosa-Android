@@ -11,6 +11,8 @@
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
     <string name="facebook">F Continue with Facebook</string>
+    <string name="facebook_app_id">[842731455896001]</string>
+    <string name="fb_login_protocol_scheme">fb[842731455896001]</string>ß
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
