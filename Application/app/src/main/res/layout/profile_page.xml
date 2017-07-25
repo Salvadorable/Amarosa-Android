@@ -11,51 +11,58 @@
         android:layout_height="wrap_content"
         android:text="Profile"
         android:gravity="center"
-        android:layout_weight="0.42"
+        android:layout_weight="0.20"
         android:textSize="30dp"
    />
 
-    <ImageView
-        android:id="@+id/imageView7"
+    <Space
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.8"
-        app:srcCompat="@drawable/cake"
-        />
+        android:layout_weight="0.35" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/profile_pic"
+        android:layout_weight="0.32" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.21" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="258dp"
+        android:layout_height="189dp"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/editText"
+        <TextView
+            android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1.36"
-            android:ems="10"
+            android:layout_weight="0.01"
             android:gravity="center"
-
-            android:inputType="textPersonName"
-            android:text="Name" />
+            android:text="@string/facebook"/>
 
         <Button
             android:id="@+id/settings"
-            android:layout_width="match_parent"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.41"
+            android:layout_gravity="center"
+            android:background="@drawable/round_corners"
             android:text="Settings" />
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1.36" />
+            android:layout_weight="0.01" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="77dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <Button
@@ -89,13 +96,16 @@
         android:orientation="vertical"
         android:weightSum="1">
 
-        <EditText
-            android:id="@+id/editText3"
+        <TextView
+            android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Name" />
+            android:text="Your LoverPage"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:textStyle="bold"
+
+            android:layout_weight="0.30" />
 
         <TextView
             android:layout_width="350dp"
