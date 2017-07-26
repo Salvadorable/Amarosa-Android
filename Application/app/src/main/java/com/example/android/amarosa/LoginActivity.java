@@ -10,7 +10,8 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
-
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
@@ -82,6 +83,7 @@ public class LoginActivity extends AppCompatActivity{
             }
         });
 
+        //startActivityForResult(AuthUI.getInstance());
 
         /**
          * This block of 5 lines below make the app switch to the create account page

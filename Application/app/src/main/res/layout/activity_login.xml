@@ -111,11 +111,8 @@
                     style="?android:textAppearanceSmall"
                     android:layout_width="295dp"
                     android:layout_height="44dp"
-
                     android:layout_gravity="center"
                     android:layout_marginTop="27dp"
-
-
                     android:background="@drawable/round_corners"
                     android:textStyle="bold" />
 
