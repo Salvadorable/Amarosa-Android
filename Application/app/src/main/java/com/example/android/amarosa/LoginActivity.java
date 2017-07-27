@@ -10,6 +10,10 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
+
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import android.content.CursorLoader;
@@ -22,6 +26,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,12 +38,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+import com.firebase.client.core.Tag;
+import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
@@ -52,10 +64,13 @@ public class LoginActivity extends AppCompatActivity{
     // UI references.
     private Button mCreateAccountButton; //had to create my button
     private Button mSignIn;
+    private Button mForgotPasswordButton;
     private EditText mEmail;
     private EditText mPassword;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private Button mFacebookLoginButton;
+    private CallbackManager mCallbackManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,18 +91,67 @@ public class LoginActivity extends AppCompatActivity{
             }
         };
 
+
+/*
+        mCallbackManager = CallbackManager.Factory.create();
+        LoginManager.getInstance().registerCallback(mCallbackManager,
+                new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        //push to authentication here with Andrews Help
+                        startActivity(new Intent(LoginActivity.this, ProfilePage.class));
+                    }
+                    public void onCancel(){
+                        Toast.makeText(getApplicationContext(),"Salvadors Fault",Toast.LENGTH_LONG).show();
+                    }
+                    public void onError(FacebookException e){
+                        Toast.makeText(getApplicationContext(),"We encountered a Error please Try Again",Toast.LENGTH_LONG).show();
+                    }
+                });
+*/
+
+
+        // Initialize Facebook Login button WE NEED TO FIGURE THIS SHIT OUT
+        mCallbackManager = CallbackManager.Factory.create();
+        LoginButton loginButton = (LoginButton) findViewById(R.id.login_button_with_facebook);
+        //loginButton.setReadPermissions("email", "public_profile");
+        loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Toast.makeText(LoginActivity.this,"Email or Password is Blank, Try again Bitch", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(LoginActivity.this, ProfilePage.class));
+                //handleFacebookAccessToken(loginResult.getAccessToken());
+            }
+            @Override
+            public void onCancel() {
+                Toast.makeText(LoginActivity.this,"You Cancelled ME", Toast.LENGTH_LONG).show();
+
+                // ...
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Toast.makeText(LoginActivity.this,"Error", Toast.LENGTH_LONG).show();
+                FirebaseAuth.getInstance().signOut();
+                // ...
+            }
+        });
+
+
+
+
+
+
+
+        /**
+         * All my onclick listeners
+         */
         mSignIn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 startSignIn();
             }
         });
-
-        //startActivityForResult(AuthUI.getInstance());
-
-        /**
-         * This block of 5 lines below make the app switch to the create account page
-         */
         mCreateAccountButton = (Button) findViewById(R.id.create_a_account);
         mCreateAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,6 +160,15 @@ public class LoginActivity extends AppCompatActivity{
                 startActivity(i);
             }
         });//end of the intent
+
+        mForgotPasswordButton = (Button) findViewById(R.id.forgot_your_password_button);
+        mForgotPasswordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(v.getContext(),ForgotPassword.class);
+                startActivity(i);
+            }
+        });
     }//end of oncreate method
 
     public void startSignIn(){
@@ -123,5 +196,17 @@ public class LoginActivity extends AppCompatActivity{
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
     }
+
+    protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        mCallbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
 }//end of class
+
+
+
+
+
+
 

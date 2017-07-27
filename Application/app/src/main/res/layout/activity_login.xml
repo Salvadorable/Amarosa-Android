@@ -89,7 +89,7 @@
                         android:layout_weight="0.41" />
 
                     <Button
-                        android:id="@+id/button3"
+                        android:id="@+id/forgot_your_password_button"
                         android:layout_width="24dp"
                         android:layout_height="25dp"
                         android:background="@drawable/pass" />
@@ -106,15 +106,13 @@
                     android:background="@drawable/signsin"
                     android:textStyle="bold" />
 
-                <Button
-                    android:id="@+id/continue_with_facebook"
-                    style="?android:textAppearanceSmall"
-                    android:layout_width="295dp"
-                    android:layout_height="44dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="27dp"
-                    android:background="@drawable/round_corners"
-                    android:textStyle="bold" />
+                <com.facebook.login.widget.LoginButton
+                    android:id="@+id/login_button_with_facebook"
+                    android:layout_width="294dp"
+                    android:layout_height="41dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/round_corners" />
 
                 <Button
                     android:id="@+id/create_a_account"

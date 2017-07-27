@@ -28,8 +28,8 @@
         android:layout_height="258dp"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/editText"
+        <TextView
+            android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1.36"
@@ -59,7 +59,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/create_loverpage"
+            android:id="@+id/create_loverpage_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -76,7 +76,7 @@
             />
 
         <Button
-            android:id="@+id/join_loverpage"
+            android:id="@+id/join_loverpage_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -89,7 +89,7 @@
         android:orientation="vertical"
         android:weightSum="1">
 
-        <EditText
+        <TextView
             android:id="@+id/editText3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
