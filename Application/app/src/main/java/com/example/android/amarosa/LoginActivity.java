@@ -11,6 +11,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -45,9 +46,11 @@ import com.firebase.client.core.Tag;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -115,11 +118,37 @@ public class LoginActivity extends AppCompatActivity{
         mCallbackManager = CallbackManager.Factory.create();
         LoginButton loginButton = (LoginButton) findViewById(R.id.login_button_with_facebook);
         //loginButton.setReadPermissions("email", "public_profile");
-        loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+        loginButton.setReadPermissions(Arrays.asList("email"));
+
+
+        FacebookSdk.sdkInitialize(this.getApplicationContext());
+        FirebaseAuth.getInstance().signOut();
+        LoginManager.getInstance().logOut();
+        LoginManager.getInstance().registerCallback(mCallbackManager,
+                new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        Toast.makeText(LoginActivity.this,"FUCK ME IN THE ASS", Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        Toast.makeText(LoginActivity.this,"Cancelled me", Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onError(FacebookException exception) {
+                        Toast.makeText(LoginActivity.this,"error again", Toast.LENGTH_LONG).show();
+
+                    }
+                });
+
+       /* loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Toast.makeText(LoginActivity.this,"Email or Password is Blank, Try again Bitch", Toast.LENGTH_LONG).show();
+                handleFacebookAccessToken(loginResult.getAccessToken());
                 startActivity(new Intent(LoginActivity.this, ProfilePage.class));
+                //FirebaseAuth.getInstance().signInWithCredential();
                 //handleFacebookAccessToken(loginResult.getAccessToken());
             }
             @Override
@@ -132,13 +161,14 @@ public class LoginActivity extends AppCompatActivity{
             @Override
             public void onError(FacebookException error) {
                 Toast.makeText(LoginActivity.this,"Error", Toast.LENGTH_LONG).show();
-                FirebaseAuth.getInstance().signOut();
+                LoginManager.getInstance().logOut();
+                return;
                 // ...
             }
         });
 
 
-
+*/
 
 
 
@@ -200,6 +230,27 @@ public class LoginActivity extends AppCompatActivity{
     protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         mCallbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void handleFacebookAccessToken(AccessToken token) {
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Toast.makeText(LoginActivity.this,"fuck you", Toast.LENGTH_LONG).show();
+                            // FirebaseUser user = mAuth.getCurrentUser();
+
+                        } else {
+                            // If sign in fails, display a message to the user.
+
+                        }
+
+                        // ...
+                    }
+                });
     }
 
 }//end of class

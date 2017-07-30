@@ -2,6 +2,7 @@ package com.example.android.amarosa;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,11 +16,19 @@ import android.widget.Toast;
 import com.firebase.client.Firebase;
 import com.firebase.client.core.Context;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.File;
+import java.util.UUID;
 
 public class CreateAccountPage extends AppCompatActivity {
 
@@ -33,14 +42,15 @@ public class CreateAccountPage extends AppCompatActivity {
     private Button mGender1;
     private Button mGender2;
     private Button mGender3;
+    private StorageReference mStorage;
     private ProgressDialog progress;//we need to figure out the new progress dialog
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account_page);
-
-        mDatabase = FirebaseDatabase.getInstance().getReference("users");
+        mStorage = FirebaseStorage.getInstance().getReference();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
         mAuth = FirebaseAuth.getInstance();
         mFinishCreateAccountButton = (Button) findViewById(R.id.finish_create_account_button);
         mEmail = (EditText) findViewById(R.id.new_user_email);
@@ -61,10 +71,10 @@ public class CreateAccountPage extends AppCompatActivity {
     }
     private void registerUser(){
 
-        String email = mEmail.getText().toString().trim();
-        String password = mPassword.getText().toString().trim();
-        String birthday = mBirthday.getText().toString().trim();
-        String name = mName.getText().toString().trim();
+        final String email = mEmail.getText().toString().trim();
+        final String password = mPassword.getText().toString().trim();
+        final String birthday = mBirthday.getText().toString().trim();
+        final String name = mName.getText().toString().trim();
 
         if(email.isEmpty()){
             Toast.makeText(CreateAccountPage.this,"You need to put in a Email Account",Toast.LENGTH_LONG).show();
@@ -85,11 +95,6 @@ public class CreateAccountPage extends AppCompatActivity {
         /*
         This is where we add to the Database
          */
-        String id = mDatabase.push().getKey();
-        mDatabase.child(id).child("Email").setValue(email);
-        mDatabase.child(id).child("Password").setValue(password);
-        mDatabase.child(id).child("Birthday").setValue(birthday);
-        mDatabase.child(id).child("Name").setValue(name);
 
         //lets show a progressbar
 
@@ -97,6 +102,33 @@ public class CreateAccountPage extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
+                    Uri file = Uri.fromFile(new File("@drawable/person.png"));
+                    if(file != null){
+                        Toast.makeText(getApplicationContext(),"fuck you andrew",Toast.LENGTH_LONG).show();
+
+                        final String uuid = UUID.randomUUID().toString();
+                       // uploadTask = riversRef.putFile(file);
+                           UploadTask uploadTask = mStorage.child("user_profile_pictures").child(uuid).putFile(file);
+// Register observers to listen for when the download is done or if it fails
+                        uploadTask.addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                // Handle unsuccessful uploads
+                            }
+                        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                                Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                            }
+                        });
+                    }
+                    /*  String user = mAuth.getCurrentUser().getUid();
+                    mDatabase.child(user).child("Email").setValue(email);
+                    mDatabase.child(user).child("Password").setValue(password);
+                    mDatabase.child(user).child("Birthday").setValue(birthday);
+                    mDatabase.child(user).child("Name").setValue(name);
+                    */
                     Toast.makeText(getApplicationContext(),"Successfully Registered User",Toast.LENGTH_LONG).show();
                 }
                 else{
